@@ -15,7 +15,9 @@ while (($data = fgetcsv($handle)) !== FALSE) {
 }
 
 foreach($filePath as $fpath) {
-    findNReplace($fpath);
+    if(checkPathPermission($fpath)){
+        findNReplace($fpath);
+    }
 }
 
 function findNReplace($file) {
@@ -74,6 +76,15 @@ function findNReplace($file) {
     }
     echo "Done -> " . $file . "<br>";
     return true;
+}
+
+function checkPathPermission($file){
+
+    if(is_writable(pathinfo($file)['dirname'])){
+        return true;
+    }
+    echo "Fail -> " . $file;
+    return false;
 }
 
 ?>
