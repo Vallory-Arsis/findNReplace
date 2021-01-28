@@ -112,7 +112,7 @@ function findNReplace($file, $remove) {
         }
     }
 
-    echo "Ending with File ->" . $file . "<br>";
+    echo "Ending with File -> " . $file . "<br>";
 
     return true;
 }
