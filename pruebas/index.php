@@ -215,7 +215,7 @@
         }
     </style>
     <div class="map-responsive">
-        <iframe width="480" height="440" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAM_ZKsGpDvLK34jsL1KXDvzUf0yKAsi-Y&#10;&amp;q=Printos,Asunción&amp;zoom=16" allowfullscreen="">
+        <iframe width="480" height="440" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=placeholder&#10;&amp;q=Printos,Asunción&amp;zoom=16" allowfullscreen="">
         </iframe>
     </div>
     <div class="col-12">
