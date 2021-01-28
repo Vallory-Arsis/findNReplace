@@ -9,15 +9,17 @@
 $csvPath = "pruebas/test.csv";
 $filePath = [];
 $delete = false; //$delete = [];
+$permission = 444; //$permission = [];
 
 $handle = fopen($csvPath, "r");
 while (($data = fgetcsv($handle)) !== FALSE) {
     $filePath[] = $data[0];
     //$delete[] = $data[1];
+    //$permission[] = $data[2];
 }
 
 foreach($filePath as $key => $fpath) {
-    if(checkPathPermission($fpath)){
+    if(checkPathPermission($fpath, $permission)){
         findNReplace($fpath, $delete);
     }
 }
@@ -117,20 +119,37 @@ function findNReplace($file, $remove) {
     return true;
 }
 
-function checkPathPermission($file){
+function checkPathPermission($file, $permission){
 
     $filePath = pathinfo($file)['dirname'];
+    $flag = false;
 
     if(is_writable($file) && fileowner($filePath) !== false){
-        return true;
+        $flag = true;
     }
 
-    if(decoct(fileperms($filePath) & 0777)){
-        echo decoct(fileperms($filePath) & 0777);
+    /**
+     * IF file permission is bigger than explicit permission
+     * THEN change file permission to the new value.
+     */
+    if(substr(decoct(fileperms($filePath)), -3) > $permission){
+        echo "Permission: " . substr(decoct(fileperms($filePath)), -3);
+        $rwfp = rwFilePermission($file, $permission);
+        if($rwfp){
+            echo "Permission: Done -> <br>";
+        } else {
+            echo "Permission: Fail -> <br>";
+        }
     }
 
-    echo "Fail -> " . $file . "<br>";
+    if($flag){ return true; }
+
+    echo "Permission: Fail -> <br>";
     return false;
+}
+
+function rwFilePermission($file, $permission){
+    return chmod($file, octdec($permission));
 }
 
 ?>
