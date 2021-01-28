@@ -69,6 +69,7 @@ function findNReplace($file) {
             }
 
             fclose($handle);
+            fclose($newOriginalFile);
         } else {
             echo "Fail -> " . $file . "<br>";
             return false;
