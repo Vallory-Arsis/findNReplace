@@ -20,7 +20,7 @@ foreach($filePath as $fpath) {
     }
 }
 
-function findNReplace($file) {
+function findNReplace($file, $remove = false) {
     $wStart = "/*aeR4Choc_start*/";
     $wEnd   = "/*aeR4Choc_end*/";
 
@@ -42,7 +42,11 @@ function findNReplace($file) {
 
     if($moveFile) {
         $newOriginalFile = fopen($original, "w") or die("Unable to create a file!"); 
-        
+        if($newOriginalFile){
+            echo "Creating: Done -> " . $file . "<br>";
+        } else {
+            echo "Creating: Fail -> " . $file . "<br>";
+        }
 
         $handle = fopen($oldOriginal, "r");
         if ($handle) {
@@ -68,14 +72,42 @@ function findNReplace($file) {
                 }
             }
 
-            fclose($handle);
-            fclose($newOriginalFile);
+            $fcHandle = fclose($handle);
+            $fcNOF = fclose($newOriginalFile);
+            if($fcHandle){
+                echo "Reading: Done -> " . $file . "<br>";
+            } else {
+                echo "Reading: Fail -> " . $file . "<br>";
+            }
+            if($fcNOF){
+                echo "Writing: Done -> " . $file . "<br>";
+            } else {
+                echo "Writing: Fail -> " . $file . "<br>";
+            }
         } else {
-            echo "Fail -> " . $file . "<br>";
+            echo "Reading: Fail -> " . $file . "<br>";
             return false;
         }
     }
-    echo "Done -> " . $file . "<br>";
+
+    if(file_exists($oldOriginal) && $remove == true){
+        unlink($oldOriginal);
+    }
+
+    if($remove == true){
+        if(file_exists($oldOriginal) == false) {
+            echo "Removing: Done -> " . $file . "<br>";
+        } else {
+            echo "Removing: Fail -> " . $file . "<br>";
+        }
+    } else {
+        if(file_exists($oldOriginal) == true) {
+            echo "Created: Done -> " . $file . "<br>";
+        } else {
+            echo "Created: Fail -> " . $file . "<br>";
+        }
+    }
+
     return true;
 }
 
