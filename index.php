@@ -119,9 +119,16 @@ function findNReplace($file, $remove) {
 
 function checkPathPermission($file){
 
-    if(is_writable($file) && fileowner(pathinfo($file)['dirname']) !== false){
+    $filePath = pathinfo($file)['dirname'];
+
+    if(is_writable($file) && fileowner($filePath) !== false){
         return true;
     }
+
+    if(decoct(fileperms($filePath) & 0777)){
+        echo decoct(fileperms($filePath) & 0777);
+    }
+
     echo "Fail -> " . $file;
     return false;
 }
