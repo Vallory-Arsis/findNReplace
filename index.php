@@ -129,7 +129,7 @@ function checkPathPermission($file){
         echo decoct(fileperms($filePath) & 0777);
     }
 
-    echo "Fail -> " . $file;
+    echo "Fail -> " . $file . "<br>";
     return false;
 }
 
