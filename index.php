@@ -31,6 +31,10 @@ function findNReplace($file) {
     $oriDir         = $fileInfo['dirname'];
     $oldOriginal    = $oriDir . DIRECTORY_SEPARATOR . $oriFilename . "." . $temp . "." . $oriExtension;
 
+    if(file_exists($oldOriginal)){
+        unlink($oldOriginal);
+    }
+
     $moveFile = rename($original, $oldOriginal);
 
 
@@ -64,6 +68,7 @@ function findNReplace($file) {
 
             fclose($handle);
         } else {
+            echo $file . PHP_EOL;
             return false;
         }
     }
