@@ -68,11 +68,11 @@ function findNReplace($file) {
 
             fclose($handle);
         } else {
-            echo "Fail -> " . $file . PHP_EOL;
+            echo "Fail -> " . $file . "<br>";
             return false;
         }
     }
-    echo "Done -> " . $file . PHP_EOL;
+    echo "Done -> " . $file . "<br>";
     return true;
 }
 
