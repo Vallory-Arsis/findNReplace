@@ -81,7 +81,7 @@ function findNReplace($file) {
 
 function checkPathPermission($file){
 
-    if(is_writable($file) && fileowner(pathinfo($file)['dirname']) != 'root'){
+    if(is_writable($file) && fileowner(pathinfo($file)['dirname']) !== false){
         return true;
     }
     echo "Fail -> " . $file;
